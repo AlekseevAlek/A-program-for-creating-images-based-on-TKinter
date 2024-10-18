@@ -23,6 +23,7 @@ class DrawingApp:
 
         self.canvas.bind('<B1-Motion>', self.paint)
         self.canvas.bind('<ButtonRelease-1>', self.reset)
+        self.canvas.bind('<Button-3>', self.pick_color)  # Добавляем привязку для правой кнопки мыши
 
     def setup_ui(self):
         '''Метод отвечает за создание и расположение виджетов управления.'''
@@ -93,6 +94,13 @@ class DrawingApp:
                 file_path += '.png'
             self.image.save(file_path)
             messagebox.showinfo("Информация", "Изображение успешно сохранено!")
+
+    def pick_color(self, event):
+        ''' Метод для выбора цвета пипеткой.'''
+        x, y = event.x, event.y
+        pixel_color = self.image.getpixel((x, y))
+        self.pen_color = '#%02x%02x%02x' % pixel_color
+        print(f"Выбран цвет: {self.pen_color}")
 
 
 def main():
