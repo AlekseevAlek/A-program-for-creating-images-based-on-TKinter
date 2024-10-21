@@ -88,7 +88,7 @@ class DrawingApp:
         '''Метод отвечает за действие ластика.'''
         self.pen_color = 'white'
 
-    def save_image(self):
+    def save_image(self, event):
         '''Метод сохраняет изображение.'''
         file_path = filedialog.asksaveasfilename(filetypes=[('PNG files', '*.png')])
         if file_path:
