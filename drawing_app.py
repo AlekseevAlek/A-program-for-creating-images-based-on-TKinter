@@ -23,9 +23,9 @@ class DrawingApp:
 
         self.canvas.bind('<B1-Motion>', self.paint)
         self.canvas.bind('<ButtonRelease-1>', self.reset)
-        self.canvas.bind('<Button-3>', self.pick_color)  # Добавляем привязку для правой кнопки мыши
-        self.root.bind('<Control-s>', self.save_image)
-        self.root.bind('<Control-c>', self.choose_color)
+        self.canvas.bind('<Button-3>', self.pick_color)  # Добавление привязки для правой кнопки мыши
+        self.root.bind('<Control-s>', self.save_image)   # Добавление горячих клавиш для сохранения
+        self.root.bind('<Control-c>', self.choose_color)  # Добавление горячих клавиш для выбора цвета
 
     def setup_ui(self):
         '''Метод отвечает за создание и расположение виджетов управления.'''
