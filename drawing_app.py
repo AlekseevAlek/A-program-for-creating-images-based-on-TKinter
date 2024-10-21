@@ -24,6 +24,8 @@ class DrawingApp:
         self.canvas.bind('<B1-Motion>', self.paint)
         self.canvas.bind('<ButtonRelease-1>', self.reset)
         self.canvas.bind('<Button-3>', self.pick_color)  # Добавляем привязку для правой кнопки мыши
+        self.root.bind('<Control-s>', self.save_image)
+        self.root.bind('<Control-c>', self.choose_color)
 
     def setup_ui(self):
         '''Метод отвечает за создание и расположение виджетов управления.'''
@@ -75,7 +77,7 @@ class DrawingApp:
         self.image = Image.new("RGB", (600, 400), "white")
         self.draw = ImageDraw.Draw(self.image)
 
-    def choose_color(self):
+    def choose_color(self, event):
         '''Метод для выбора цвета кисти.'''
         new_color = colorchooser.askcolor(color=self.pen_color)[1]
         if new_color:
