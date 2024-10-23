@@ -15,6 +15,9 @@ class DrawingApp:
         self.canvas = tk.Canvas(root, width=600, height=400, bg='white')
         self.canvas.pack()
 
+        self.color_preview = tk.Label(root, width=20, height=2, bg='white', relief=tk.RAISED, borderwidth=1)
+        self.color_preview.pack()
+
         self.setup_ui()
 
         self.last_x, self.last_y = None, None
@@ -70,6 +73,7 @@ class DrawingApp:
         self.last_x, self.last_y = None, None
         # Восстановливаем предыдущий цвет
         self.pen_color = self.previous_color.get()
+        self.update_color_preview()
 
     def clear_canvas(self):
         '''Метод очищает холст.'''
@@ -77,18 +81,20 @@ class DrawingApp:
         self.image = Image.new("RGB", (600, 400), "white")
         self.draw = ImageDraw.Draw(self.image)
 
-    def choose_color(self, event):
+    def choose_color(self, event=None):
         '''Метод для выбора цвета кисти.'''
         new_color = colorchooser.askcolor(color=self.pen_color)[1]
         if new_color:
             self.pen_color = new_color
             self.previous_color.set(new_color)
+            self.update_color_preview()
 
     def erase(self):
         '''Метод отвечает за действие ластика.'''
         self.pen_color = 'white'
+        self.update_color_preview()
 
-    def save_image(self, event):
+    def save_image(self, event=None):
         '''Метод сохраняет изображение.'''
         file_path = filedialog.asksaveasfilename(filetypes=[('PNG files', '*.png')])
         if file_path:
@@ -103,6 +109,12 @@ class DrawingApp:
         pixel_color = self.image.getpixel((x, y))
         self.pen_color = '#%02x%02x%02x' % pixel_color
         print(f"Выбран цвет: {self.pen_color}")
+        self.update_color_preview()
+
+    def update_color_preview(self):
+        '''Метод для предварительного просмотра цвета кисти'''
+        self.color_preview.config(bg=self.pen_color)
+
 
 
 def main():
